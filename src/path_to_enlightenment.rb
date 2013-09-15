@@ -9,7 +9,7 @@ require 'about_arrays'
 require 'about_array_assignment'
 require 'about_hashes'
 require 'about_strings'
-#require 'about_symbols'
+require 'about_symbols'
 #require 'about_regular_expressions'
 #require 'about_methods'
 #in_ruby_version("2") do
