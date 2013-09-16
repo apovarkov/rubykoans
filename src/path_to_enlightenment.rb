@@ -11,7 +11,7 @@ require 'about_hashes'
 require 'about_strings'
 require 'about_symbols'
 require 'about_regular_expressions'
-#require 'about_methods'
+require 'about_methods'
 #in_ruby_version("2") do
 #  require 'about_keyword_arguments'
 #end
