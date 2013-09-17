@@ -30,7 +30,73 @@ require File.expand_path(File.dirname(__FILE__) + '/neo')
 # Your goal is to write the score method.
 
 def score(dice)
-  # You need to write this method
+  length = dice.length
+
+  score = 0
+  case length
+    when 0 then
+      score
+    when 1..2 then
+      dice.each { |single| score += get_dice_score(single) }
+    when 3..5
+      score += processMultipleDice(dice, score)
+    else
+      0
+  end
+  score
+end
+
+def process_single_dice(dice, score)
+  dice.each { |single| score += get_dice_score(single) }
+  score
+end
+
+def get_dice_score(dice)
+  case dice
+    when 1 then 100
+    when 5 then 50
+    else 0
+  end
+end
+
+def findTrinity(dice)
+  trinity = dice.find_all{|i| i == dice.detect { |a| dice.count(a) >= 3 }}
+  return trinity[0..2]
+end
+
+# @param [Object] dice
+def processMultipleDice(dice, initialScore)
+  trinity = findTrinity(dice)
+  res = initialScore
+  if trinity.length == 0
+    res = process_single_dice(dice, res)
+  else
+    res += processTrinity(trinity)
+    return processMultipleDice(remove(dice, trinity), res)
+  end
+
+  return res
+end
+
+def remove(array1, array2)
+  unless array1 && array2
+    return array1 || array2
+  end
+  if array1 == array2
+    return []
+  end
+  while array2.length > 0
+    array1.delete_at(array1.index(array2.pop) || array1.length)
+  end
+  array1
+end
+
+def processTrinity(trinity)
+  first = trinity.first
+  case first
+    when 1 then 1000
+    else first * 100
+  end
 end
 
 class AboutScoringProject < Neo::Koan
