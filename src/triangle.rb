@@ -14,7 +14,25 @@
 #   about_triangle_project_2.rb
 #
 def triangle(a, b, c)
-  # WRITE THIS CODE
+  validateInput(a, b, c)
+  if a == b || a == c || b == c
+     if a == b && a == c
+       :equilateral
+     else
+       :isosceles
+     end
+  else
+    :scalene
+  end
+end
+
+def validateInput(a, b, c)
+  if a <= 0 || b <= 0 || c <= 0
+    raise TriangleError.new
+  end
+  if (a + b) <= c || (a + c) <= b || (b + c) <= a
+    raise TriangleError.new
+  end
 end
 
 # Error class used in part 2.  No need to change this code.
