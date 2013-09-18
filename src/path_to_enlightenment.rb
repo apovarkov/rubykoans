@@ -38,4 +38,4 @@ require 'about_to_str'
 in_ruby_version("jruby") do
   require 'about_java_interop'
 end
-#require 'about_extra_credit'
+require 'about_extra_credit'
