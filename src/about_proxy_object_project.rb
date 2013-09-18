@@ -15,10 +15,33 @@ require File.expand_path(File.dirname(__FILE__) + '/neo')
 class Proxy
   def initialize(target_object)
     @object = target_object
-    # ADD MORE CODE HERE
+    @methods = []
   end
 
-  # WRITE CODE HERE
+  def send(*args)
+    @object.send(*args)
+  end
+
+  def method_missing(method_name, *args)
+    @methods << method_name
+    @object.send(method_name, *args)
+  end
+
+  def messages
+    @methods
+  end
+
+  def channel
+    @object.channel
+  end
+
+  def called?(method_name)
+    @methods.include?(method_name)
+  end
+
+  def number_of_times_called(method_name)
+    @methods.count(method_name)
+  end
 end
 
 # The proxy object should pass the following Koan:
@@ -92,8 +115,6 @@ class AboutProxyObjectProject < Neo::Koan
     assert_equal [:upcase!, :split], proxy.messages
   end
 end
-
-
 # ====================================================================
 # The following code is to support the testing of the Proxy class.  No
 # changes should be necessary to anything below this comment.
